@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Learn about RAMMAR and the resource categories featured on the site.">
+  <title>About | RAMMAR</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #172033;
+      background: #f5f7fb;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1.5rem;
+      box-sizing: border-box;
+    }
+
+    header,
+    main,
+    footer {
+      width: min(100%, 58rem);
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    header {
+      margin-bottom: 0.75rem;
+      padding: 0.7rem 1rem;
+      border-radius: 0.75rem;
+      background: #fff;
+    }
+
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      position: relative;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: #172033;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 2.65rem;
+      height: 2.65rem;
+      flex: none;
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 0.1rem;
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      line-height: 1;
+    }
+
+    .brand-tagline {
+      color: #64748b;
+      font-size: 0.62rem;
+      font-weight: 650;
+      letter-spacing: 0.16em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    #site-menu {
+      display: flex;
+      align-items: center;
+      flex: 1 1 auto;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      min-width: 0;
+      gap: 0.15rem 0.65rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    #site-menu > li {
+      position: relative;
+    }
+
+    .products-dropdown > summary {
+      color: #000;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .products-dropdown > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .products-submenu {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      left: 0;
+      z-index: 2;
+      display: none;
+      flex-direction: column;
+      gap: 0.25rem;
+      min-width: 14rem;
+      margin: 0;
+      padding: 0.5rem;
+      list-style: none;
+      border: 1px solid #e2e7f0;
+      border-radius: 0.75rem;
+      background: #fff;
+      box-shadow: 0 0.75rem 1.5rem rgb(23 32 51 / 12%);
+    }
+
+    .products-dropdown[open] .products-submenu {
+      display: flex;
+    }
+
+    .electronics-dropdown > summary,
+    .category-dropdown > summary {
+      padding: 0.55rem 0.65rem;
+      color: #000;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .electronics-dropdown > summary::-webkit-details-marker,
+    .category-dropdown > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .electronics-submenu,
+    .category-submenu {
+      display: none;
+      flex-direction: column;
+      gap: 0.1rem;
+      margin: 0 0 0.35rem;
+      padding: 0 0 0 0.75rem;
+      list-style: none;
+    }
+
+    .electronics-dropdown[open] .electronics-submenu,
+    .category-dropdown[open] .category-submenu {
+      display: flex;
+    }
+
+    nav a {
+      color: #000;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    nav a:hover,
+    nav a[aria-current="page"] {
+      color: #000;
+      background: #fff7ed;
+    }
+
+    .breadcrumbs {
+      width: min(100%, 50rem);
+      box-sizing: border-box;
+      margin: 0 auto 1rem;
+      padding: 0.65rem 1rem;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumbs ol {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .breadcrumbs li {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .breadcrumbs li + li::before {
+      padding: 0 0.5rem;
+      color: #64748b;
+      content: ">";
+    }
+
+    .breadcrumbs a {
+      color: #3157c8;
+      text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+      text-decoration: underline;
+    }
+
+    .products-submenu a {
+      display: block;
+      padding: 0.55rem 0.65rem;
+      border-radius: 0.4rem;
+      white-space: nowrap;
+    }
+
+    main {
+      flex: 1;
+      margin: 0 auto;
+      width: min(100%, 42rem);
+      padding: clamp(2rem, 7vw, 4rem);
+      border: 1px solid #e2e7f0;
+      border-radius: 1rem;
+      background: #fff;
+      box-shadow: 0 1rem 3rem rgb(23 32 51 / 8%);
+    }
+
+    h1 {
+      margin: 0 0 1rem;
+      font-size: clamp(2rem, 7vw, 3.25rem);
+      letter-spacing: -0.04em;
+    }
+
+    p {
+      margin: 0 0 1rem;
+      color: #4b5568;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .about-lead {
+      font-size: 1.15rem;
+      line-height: 1.75;
+    }
+
+    .about-note {
+      padding: 1rem 1.1rem;
+      border-left: 3px solid #3157c8;
+      border-radius: 0.25rem;
+      background: #f6f8ff;
+    }
+
+    .about-table-wrap {
+      margin-top: 1.5rem;
+      overflow-x: auto;
+    }
+
+    .about-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      color: #4b5568;
+      line-height: 1.65;
+    }
+
+    .about-table caption {
+      padding: 0 0 0.65rem;
+      color: #172033;
+      font-size: 1.15rem;
+      font-weight: 750;
+      text-align: left;
+    }
+
+    .about-table th,
+    .about-table td {
+      padding: 0.8rem;
+      border: 1px solid #e2e7f0;
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+
+    .about-table th {
+      width: 27%;
+      color: #172033;
+      background: #f6f8ff;
+    }
+
+    .about-table a {
+      color: #3157c8;
+      text-underline-offset: 0.18em;
+    }
+
+    @media (max-width: 38rem) {
+      main {
+        padding: 1.5rem;
+      }
+    }
+
+    footer {
+      width: min(100%, 58rem);
+      margin: auto auto 0;
+      padding: 1.25rem 1rem;
+      border-top: 1px solid #dbe1ea;
+      color: #000;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex: none;
+      grid-column: 1 / -1;
+      color: #000;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .footer-logo-mark {
+      display: block;
+      width: 1.4rem;
+      height: 1.4rem;
+      flex: none;
+    }
+
+    .footer-meta {
+      display: block;
+      flex: none;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .footer-links {
+      display: flex;
+      flex: none;
+      flex-wrap: nowrap;
+      justify-self: start;
+      gap: 0 0.25rem;
+      white-space: nowrap;
+    }
+
+    .footer-links a {
+      color: #000;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-underline-offset: 0.2em;
+    }
+
+    @media (max-width: 48rem) {
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-brand {
+        grid-column: auto;
+      }
+
+      .footer-meta,
+      .footer-links {
+        white-space: normal;
+      }
+
+      .footer-links {
+        justify-self: start;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+    <link rel="stylesheet" href="site-layout.css?v=8">
+  </head>
+<body class="about-page">
+  <header>
+    <nav class="top-nav" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="RAMMAR home">
+        <svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M24 4 40 13.2" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+          <path d="M40 13.2v21.6" fill="none" stroke="#facc15" stroke-width="4" stroke-linecap="round"/>
+          <path d="m40 34.8-16 9.2" fill="none" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+          <path d="m24 44-16-9.2" fill="none" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"/>
+          <path d="M8 34.8V13.2" fill="none" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
+          <path d="M8 13.2 24 4" fill="none" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+          <path d="M16 35V13h11a8 8 0 0 1 2.4 15.6L36 35h-7l-7-6h-1v6h-5Zm5-13h6a2 2 0 1 0 0-4h-6v4Z" fill="#172033" fill-rule="evenodd"/>
+          <circle cx="34.5" cy="10.1" r="2.1" fill="#ec4899"/>
+        </svg>
+        <span class="brand-copy"><span class="brand-name">RAMMAR</span><span class="brand-tagline">Discover. Connect. Build.</span></span>
+      </a>
+      <ul id="site-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Resources</a></li>
+        <li><a href="index.html#tools">Tools</a></li>
+        <li><a href="index.html#accessories">Accessories</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li><a href="signin.html">Sign In</a></li>
+      </ul>
+    </nav>
+  </header>
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="index.html">Home</a></li>
+      <li><span aria-current="page">About</span></li>
+    </ol>
+  </nav>
+  <main>
+    <h1>About RAMMAR</h1>
+    <p class="about-lead">RAMMAR is an informational resource catalog that helps people organize early research. It introduces resource categories, common terms, examples, and questions that can guide further research and conversations with manufacturers or qualified professionals.</p>
+    <p class="about-note"><strong>Current scope:</strong> RAMMAR provides general information and navigation. It is not a seller, verified supplier directory, engineering or healthcare service, or product certifier. Examples do not mean endorsement, partnership, stock, compatibility, or suitability.</p>
+
+    <div class="about-table-wrap">
+      <table class="about-table">
+        <caption>RAMMAR at a glance</caption>
+        <thead>
+          <tr><th scope="col">Area</th><th scope="col">Details</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Catalog</th>
+            <td><a href="products.html">Browse resource categories</a> including Electronics, Electrical, Hardware and Machinery, Safety and Security, Health and Medical, and general workplace needs. Home also has separate Brand, Tools, and Accessories directories.</td>
+          </tr>
+          <tr>
+            <th scope="row">Product relationships</th>
+            <td>Products support wider systems and tasks: components connect to equipment, tools assist work, accessories fit primary products, and safety or medical items have specific use requirements. Consider interfaces, environment, ratings, maintenance, and training.</td>
+          </tr>
+          <tr>
+            <th scope="row">Productivity</th>
+            <td>Describe the task, exact model, operating conditions, key ratings, dimensions, compatibility needs, approvals, and region. Organizing these details can make comparisons and supplier questions clearer; it does not guarantee savings or results.</td>
+          </tr>
+          <tr>
+            <th scope="row">Provider research</th>
+            <td>The <a href="contact.html">Contact page</a> lists manufacturer examples and official websites. Confirm regional contacts, distributor authorization, specifications, availability, and support directly with the company. RAMMAR does not forward inquiries or verify suppliers.</td>
+          </tr>
+          <tr>
+            <th scope="row">Limits</th>
+            <td>RAMMAR does not sell, stock, quote, install, ship, repair, certify, or match products. Information may change; check current manufacturer documents and consult qualified professionals, especially for electrical, industrial, medical, or safety-critical decisions.</td>
+          </tr>
+          <tr>
+            <th scope="row">Contact and accounts</th>
+            <td>No direct RAMMAR email or message-submission service is currently available. Sign-in and account forms are previews only; no account data is sent or stored. Do not enter real passwords or sensitive information.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-content">
+      <a class="footer-brand" href="index.html" aria-label="RAMMAR home"><svg class="footer-logo-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 4 40 13.2" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round"/><path d="M40 13.2v21.6" fill="none" stroke="#facc15" stroke-width="4" stroke-linecap="round"/><path d="m40 34.8-16 9.2" fill="none" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/><path d="m24 44-16-9.2" fill="none" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"/><path d="M8 34.8V13.2" fill="none" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/><path d="M8 13.2 24 4" fill="none" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/><path d="M16 35V13h11a8 8 0 0 1 2.4 15.6L36 35h-7l-7-6h-1v6h-5Zm5-13h6a2 2 0 1 0 0-4h-6v4Z" fill="#172033" fill-rule="evenodd"/><circle cx="34.5" cy="10.1" r="2.1" fill="#ec4899"/></svg>RAMMAR</a>
+      <div class="footer-meta">
+        <span>&copy; 2026 RAMMAR. All rights reserved.</span>
+      </div>
+      <nav class="footer-links" aria-label="Legal information">
+        <a href="legal.html#copyright">Copyright</a>
+        <a href="legal.html#standards">IEEE &amp; ISO Standards</a>
+        <a href="legal.html#privacy">Privacy Policy</a>
+        <a href="legal.html#terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+  <script src="breadcrumbs.js?v=4"></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  box-sizing: border-box;
+  padding-bottom: 6rem;
+}
+
+header,
+main,
+footer,
+.breadcrumbs {
+  box-sizing: border-box;
+  width: min(100%, 58rem);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+header {
+  flex: 0 0 auto;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  padding: 0.7rem 1rem;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+header > nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  position: relative;
+}
+
+footer {
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  margin: 0 auto;
+  border-top: 1px solid #dbe1ea;
+  background: #f5f5f5;
+  overflow-x: auto;
+  box-shadow: 0 -0.35rem 1rem rgb(23 32 51 / 6%);
+}
+
+.footer-content {
+  display: flex;
+  width: max-content;
+  min-width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.footer-brand {
+  flex: none;
+  grid-column: auto;
+  white-space: nowrap;
+}
+
+.footer-brand::after {
+  margin-left: 0.15rem;
+  color: #64748b;
+  content: "Discover. Connect. Build.";
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.footer-content > div {
+  flex: none;
+  white-space: nowrap;
+}
+
+.footer-meta {
+  flex: none;
+  white-space: nowrap;
+}
+
+.footer-links {
+  display: flex;
+  flex: none;
+  flex-wrap: nowrap;
+  justify-self: auto;
+  gap: 0 0.35rem;
+  white-space: nowrap;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.7rem;
+  color: #172033;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.brand-logo {
+  display: block;
+  width: 2.65rem;
+  height: 2.65rem;
+  flex: none;
+}
+
+.brand-copy {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.brand-name {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.brand-tagline {
+  display: block;
+  color: #64748b;
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.brand,
+.brand:hover,
+.brand[aria-current="page"] {
+  background: transparent;
+  color: #172033;
+  text-decoration: none;
+}
+
+#site-menu {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#site-menu > li {
+  position: relative;
+}
+
+#site-menu > li > a,
+#site-menu > li > details > summary {
+  display: inline-block;
+  padding: 0.25rem 0;
+  color: #172033;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+#site-menu > li > a:hover,
+#site-menu > li > a[aria-current="page"],
+#site-menu > li > details > summary:hover,
+#site-menu > li > details > summary[aria-current="page"] {
+  color: #172033;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.breadcrumbs {
+  display: block;
+  flex: 0 0 auto;
+  position: static;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  min-height: 2.7rem;
+  padding: 0.65rem 1rem;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumbs li {
+  display: flex;
+  align-items: center;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.breadcrumbs li + li::before {
+  padding: 0 0.5rem;
+  color: #64748b;
+  content: ">";
+}
+
+main {
+  flex: 1 0 auto;
+  margin-top: 0;
+}
+
+.intro > p:last-child {
+  width: 100%;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.about-page .breadcrumbs,
+.about-page main {
+  width: min(100%, 42rem);
+}
+
+@media (max-width: 38rem) {
+  body {
+    padding: 0.75rem;
+  }
+}

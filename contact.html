@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Contact RAMMAR for website feedback, product-category questions, and general inquiries.">
+  <title>Contact Us | RAMMAR</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #172033;
+      background: #f5f7fb;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1.5rem;
+      box-sizing: border-box;
+    }
+
+    header,
+    main,
+    footer {
+      width: min(100%, 58rem);
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    header {
+      margin-bottom: 0.75rem;
+      padding: 0.7rem 1rem;
+      border-radius: 0.75rem;
+      background: #fff;
+    }
+
+    .top-nav,
+    #site-menu,
+    .breadcrumbs ol,
+    .footer-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .top-nav {
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: #172033;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 2.65rem;
+      height: 2.65rem;
+      flex: none;
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 0.1rem;
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      line-height: 1;
+    }
+
+    .brand-tagline {
+      color: #64748b;
+      font-size: 0.62rem;
+      font-weight: 650;
+      letter-spacing: 0.16em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    #site-menu {
+      flex-wrap: wrap;
+      gap: 0.15rem 0.65rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    #site-menu a {
+      color: #000;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    #site-menu a:hover,
+    #site-menu a[aria-current="page"] {
+      background: #fff7ed;
+    }
+
+    .breadcrumbs {
+      flex-wrap: wrap;
+      width: min(100%, 58rem);
+      box-sizing: border-box;
+      margin: 0 auto 1rem;
+      padding: 0.65rem 1rem;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumbs ol {
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .breadcrumbs li {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .breadcrumbs li + li::before {
+      padding: 0 0.5rem;
+      color: #64748b;
+      content: ">";
+    }
+
+    .breadcrumbs a {
+      color: #3157c8;
+      text-decoration: none;
+    }
+
+    main {
+      flex: 1;
+      padding: clamp(1.5rem, 5vw, 3rem);
+      border: 1px solid #e2e7f0;
+      border-radius: 1rem;
+      background: #fff;
+      box-shadow: 0 1rem 3rem rgb(23 32 51 / 8%);
+    }
+
+    .eyebrow {
+      margin: 0 0 0.5rem;
+      color: #3157c8;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 6vw, 3rem);
+      letter-spacing: -0.04em;
+    }
+
+    .intro {
+      max-width: 44rem;
+      margin: 0 0 2rem;
+      color: #4b5568;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .contact-panel {
+      padding: clamp(1.25rem, 4vw, 2rem);
+      border: 1px solid #dbe5ff;
+      border-radius: 0.9rem;
+      background: #f6f8ff;
+    }
+
+    .contact-panel h2,
+    .help-section h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.35rem;
+    }
+
+    .contact-panel p,
+    .help-section p {
+      color: #4b5568;
+      line-height: 1.65;
+    }
+
+    .contact-note {
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+
+    .help-section {
+      margin-top: 2rem;
+    }
+
+    .owner-directory {
+      margin: 2rem 0;
+    }
+
+    .owner-directory > h2,
+    .contact-steps > h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.5rem;
+    }
+
+    .owner-directory > p,
+    .contact-steps > p {
+      color: #4b5568;
+      line-height: 1.65;
+    }
+
+    .owner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+      gap: 1rem;
+    }
+
+    .owner-card {
+      padding: 1.15rem;
+      border: 1px solid #e2e7f0;
+      border-radius: 0.75rem;
+      background: #fff;
+    }
+
+    .owner-card h3 {
+      margin: 0 0 0.7rem;
+      font-size: 1.08rem;
+    }
+
+    .owner-card h4 {
+      margin: 0.9rem 0 0.3rem;
+      font-size: 0.95rem;
+    }
+
+    .owner-card p,
+    .owner-card li {
+      color: #4b5568;
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
+
+    .owner-card p {
+      margin: 0;
+    }
+
+    .owner-card ul,
+    .contact-steps ol {
+      display: grid;
+      gap: 0.4rem;
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+
+    .owner-card a,
+    .contact-steps a {
+      color: #2447b8;
+      font-weight: 650;
+      text-underline-offset: 0.2em;
+    }
+
+    .owner-disclaimer {
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      border-left: 3px solid #3157c8;
+      background: #f6f8ff;
+      font-size: 0.94rem;
+    }
+
+    .contact-steps {
+      margin-top: 2rem;
+      padding: 1.25rem;
+      border: 1px solid #e2e7f0;
+      border-radius: 0.75rem;
+      background: #f8fafc;
+    }
+
+    .help-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+      gap: 1rem;
+    }
+
+    .help-card {
+      padding: 1.1rem;
+      border: 1px solid #e2e7f0;
+      border-radius: 0.75rem;
+      background: #fff;
+    }
+
+    .help-card h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .help-card p {
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+
+    .help-card a {
+      color: #2447b8;
+      font-weight: 650;
+      text-underline-offset: 0.2em;
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding: 1.25rem 1rem;
+      border-top: 1px solid #dbe1ea;
+      color: #000;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      grid-column: 1 / -1;
+      color: #000;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .footer-logo-mark {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+
+    .footer-links {
+      flex-wrap: nowrap;
+      gap: 0 0.25rem;
+      white-space: nowrap;
+    }
+
+    .footer-links a {
+      color: #000;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    a:focus-visible {
+      outline: 3px solid #3157c8;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 48rem) {
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-brand {
+        grid-column: auto;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        white-space: normal;
+      }
+    }
+  </style>
+    <link rel="stylesheet" href="site-layout.css?v=8">
+  </head>
+<body>
+  <header>
+    <nav class="top-nav" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="RAMMAR home">
+        <svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M24 4 40 13.2" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+          <path d="M40 13.2v21.6" fill="none" stroke="#facc15" stroke-width="4" stroke-linecap="round"/>
+          <path d="m40 34.8-16 9.2" fill="none" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+          <path d="m24 44-16-9.2" fill="none" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"/>
+          <path d="M8 34.8V13.2" fill="none" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
+          <path d="M8 13.2 24 4" fill="none" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+          <path d="M16 35V13h11a8 8 0 0 1 2.4 15.6L36 35h-7l-7-6h-1v6h-5Zm5-13h6a2 2 0 1 0 0-4h-6v4Z" fill="#172033" fill-rule="evenodd"/>
+          <circle cx="34.5" cy="10.1" r="2.1" fill="#ec4899"/>
+        </svg>
+        <span class="brand-copy"><span class="brand-name">RAMMAR</span><span class="brand-tagline">Discover. Connect. Build.</span></span>
+      </a>
+      <ul id="site-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Resources</a></li>
+        <li><a href="index.html#tools">Tools</a></li>
+        <li><a href="index.html#accessories">Accessories</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="signin.html">Sign In</a></li>
+      </ul>
+    </nav>
+  </header>
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="index.html">Home</a></li>
+      <li><span aria-current="page">Contact</span></li>
+    </ol>
+  </nav>
+  <main>
+    <p class="eyebrow">RAMMAR support</p>
+    <h1>Contact Us</h1>
+    <p class="intro">Browse manufacturers by category. Brand descriptions are informational; this page does not provide manufacturer website links or contact details.</p>
+
+    <section class="owner-directory" aria-labelledby="owner-directory-heading">
+      <h2 id="owner-directory-heading">Find manufacturer resources by category</h2>
+      <div class="owner-grid">
+        <article class="owner-card">
+          <h3>Electronics &amp; components</h3>
+          <ul>
+            <li>Analog and mixed-signal ICs, data converters, amplifiers, and signal-processing products.</li>
+            <li>Embedded processors, power-management components, and development tools.</li>
+            <li>Microcontrollers, sensors, power semiconductors, and connectivity components.</li>
+          </ul>
+          <h4>Typical help to request</h4>
+          <p>Part selection, datasheets, evaluation boards, design resources, lifecycle status, and distributor availability.</p>
+        </article>
+        <article class="owner-card">
+          <h3>Electrical &amp; power systems</h3>
+          <ul>
+            <li>Electrification products, circuit protection, drives, motors, and automation systems.</li>
+            <li>Electrical distribution, building control, and industrial automation.</li>
+            <li>Electrical equipment, industrial control, drives, and automation products.</li>
+          </ul>
+          <h4>Typical help to request</h4>
+          <p>Product ratings, system compatibility, installation documentation, local standards, replacement parts, and distributor availability. Use a qualified professional for design and installation.</p>
+        </article>
+        <article class="owner-card">
+          <h3>Manufacturing &amp; industrial equipment</h3>
+          <ul>
+            <li>Industrial robots, CNC controls, and factory automation equipment.</li>
+            <li>Motion and drive technology, hydraulics, linear motion, and factory automation.</li>
+            <li>Industrial robots, servo systems, drives, and motion-control products.</li>
+          </ul>
+          <h4>Typical help to request</h4>
+          <p>Describe the task, load, operating environment, machine model, and region. Ask about application review, integration, commissioning, training, maintenance, and service.</p>
+        </article>
+        <article class="owner-card">
+          <h3>Healthcare &amp; medical equipment</h3>
+          <ul>
+            <li>Medical imaging, ultrasound, patient monitoring, and related healthcare technology.</li>
+            <li>Healthcare imaging, patient monitoring, and medical technology.</li>
+            <li>Medical devices and therapies across multiple clinical areas.</li>
+          </ul>
+          <h4>Typical help to request</h4>
+          <p>Ask about intended use, authorization, compatible accessories, installation, training, maintenance, and service. Consult qualified healthcare professionals for clinical decisions.</p>
+        </article>
+        <article class="owner-card">
+          <h3>Safety, security &amp; protection</h3>
+          <ul>
+            <li>Personal protective equipment and workplace safety products.</li>
+            <li>Safety equipment, gas detection, automation, and security technologies.</li>
+            <li>Head, fall, respiratory, and gas-detection protection products.</li>
+          </ul>
+          <h4>Typical help to request</h4>
+          <p>Describe the hazard, work environment, applicable standards, and existing equipment. Ask about selection, fit, training, inspection, replacement schedules, and regional support. Verify requirements with a competent safety professional.</p>
+        </article>
+      </div>
+      <p class="owner-disclaimer"><strong>Note:</strong> These are examples, not endorsements, verified suppliers, or RAMMAR partners. Product offerings vary by country. RAMMAR does not provide or forward manufacturer contact details.</p>
+    </section>
+
+    <section class="contact-steps" aria-labelledby="contact-steps-heading">
+      <h2 id="contact-steps-heading">What to include when contacting a manufacturer</h2>
+      <ol>
+        <li>Your country or service region and the product category.</li>
+        <li>The application, operating environment, and what you need the product to do.</li>
+        <li>The exact model or part number, if you are replacing or matching existing equipment.</li>
+        <li>Relevant requirements such as voltage, load, dimensions, accuracy, certifications, or compatibility.</li>
+        <li>Whether you need product guidance, a local authorized distributor, a quote, technical support, installation, training, or maintenance.</li>
+      </ol>
+      <p>Do not send passwords, payment-card details, patient information, or other sensitive data through general inquiry forms. For safety-critical, electrical, or medical applications, consult an appropriately qualified professional.</p>
+    </section>
+
+    <section class="contact-panel" aria-labelledby="contact-rammar-heading">
+      <h2 id="contact-rammar-heading">Contacting RAMMAR</h2>
+      <p><strong>Email:</strong> ---</p>
+      <p class="contact-note">RAMMAR has no direct email or message service. For product support, contact the manufacturer or an authorized distributor via its official website.</p>
+      <p><strong>Phone:</strong> To be updated.</p>
+    </section>
+
+  </main>
+  <footer>
+    <div class="footer-content">
+      <a class="footer-brand" href="index.html" aria-label="RAMMAR home">
+        <svg class="footer-logo-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M24 4 40 13.2" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+          <path d="M40 13.2v21.6" fill="none" stroke="#facc15" stroke-width="4" stroke-linecap="round"/>
+          <path d="m40 34.8-16 9.2" fill="none" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+          <path d="m24 44-16-9.2" fill="none" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"/>
+          <path d="M8 34.8V13.2" fill="none" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
+          <path d="M8 13.2 24 4" fill="none" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+          <path d="M16 35V13h11a8 8 0 0 1 2.4 15.6L36 35h-7l-7-6h-1v6h-5Zm5-13h6a2 2 0 1 0 0-4h-6v4Z" fill="#172033" fill-rule="evenodd"/>
+          <circle cx="34.5" cy="10.1" r="2.1" fill="#ec4899"/>
+        </svg>
+        RAMMAR
+      </a>
+      <div>&copy; 2026 RAMMAR. All rights reserved.</div>
+      <nav class="footer-links" aria-label="Legal information">
+        <a href="legal.html#copyright">Copyright</a>
+        <a href="legal.html#standards">IEEE &amp; ISO Standards</a>
+        <a href="legal.html#privacy">Privacy Policy</a>
+        <a href="legal.html#terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+  <script src="breadcrumbs.js?v=4"></script>
+</body>
+</html>

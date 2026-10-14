@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Browse RAMMAR resource categories for electronics, electrical, hardware, safety, security, health, and medical applications.">
+  <title>Resources | RAMMAR</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #172033;
+      background: #f5f7fb;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1.5rem;
+      box-sizing: border-box;
+    }
+
+    header,
+    main {
+      flex: 1;
+      width: min(100%, 58rem);
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 0.75rem;
+      padding: 0.7rem 1rem;
+      border-radius: 0.75rem;
+      background: #fff;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      position: relative;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: #172033;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 2.65rem;
+      height: 2.65rem;
+      flex: none;
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 0.1rem;
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      line-height: 1;
+    }
+
+    .brand-tagline {
+      color: #64748b;
+      font-size: 0.62rem;
+      font-weight: 650;
+      letter-spacing: 0.16em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    #site-menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.15rem 0.65rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    #site-menu > li {
+      position: relative;
+    }
+
+    .products-dropdown > summary {
+      color: #000;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .products-dropdown > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .products-submenu {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      left: 0;
+      z-index: 2;
+      display: none;
+      flex-direction: column;
+      gap: 0.25rem;
+      min-width: 14rem;
+      margin: 0;
+      padding: 0.5rem;
+      list-style: none;
+      border: 1px solid #e2e7f0;
+      border-radius: 0.75rem;
+      background: #fff;
+      box-shadow: 0 0.75rem 1.5rem rgb(23 32 51 / 12%);
+    }
+
+    .products-dropdown[open] .products-submenu {
+      display: flex;
+    }
+
+    .electronics-dropdown > summary,
+    .category-dropdown > summary {
+      padding: 0.55rem 0.65rem;
+      color: #000;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .electronics-dropdown > summary::-webkit-details-marker,
+    .category-dropdown > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .electronics-submenu,
+    .category-submenu {
+      display: none;
+      flex-direction: column;
+      gap: 0.1rem;
+      margin: 0 0 0.35rem;
+      padding: 0 0 0 0.75rem;
+      list-style: none;
+    }
+
+    .electronics-dropdown[open] .electronics-submenu,
+    .category-dropdown[open] .category-submenu {
+      display: flex;
+    }
+
+    nav a {
+      color: #000;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    nav a:hover,
+    nav a[aria-current="page"] {
+      color: #000;
+      background: #fff7ed;
+    }
+
+    .products-submenu a {
+      display: block;
+      padding: 0.55rem 0.65rem;
+      border-radius: 0.4rem;
+      white-space: nowrap;
+    }
+
+    .intro {
+      max-width: 100%;
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumbs {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      width: min(100%, 58rem);
+      box-sizing: border-box;
+      margin: 0 auto 1rem;
+      padding: 0.65rem 1rem;
+      background: #f5f7fb;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumbs ol {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .breadcrumbs li {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .breadcrumbs li + li::before {
+      padding: 0 0.5rem;
+      color: #64748b;
+      content: ">";
+    }
+
+    .breadcrumbs a {
+      color: #3157c8;
+      text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+      text-decoration: underline;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.5rem;
+      color: #3157c8;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 7vw, 3.25rem);
+      letter-spacing: -0.04em;
+    }
+
+    .intro > p:last-child {
+      width: calc(100% + 2rem);
+      margin: 0 0 0 -1rem;
+      color: #4b5568;
+      font-size: 0.76rem;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      overflow: hidden;
+      padding-bottom: 1.5rem;
+      border: 1px solid #e2e7f0;
+      border-radius: 0.85rem;
+      background: #fff;
+    }
+
+    .card,
+    .component-list li {
+      scroll-margin-top: 4rem;
+    }
+
+    .card img {
+      display: block;
+      width: 100%;
+      height: 12rem;
+      object-fit: cover;
+      background: #e2e7f0;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.15rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: #4b5568;
+      line-height: 1.6;
+    }
+
+    .component-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 1rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .component-list li {
+      padding: 0.3rem 0.55rem;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 0.875rem;
+    }
+
+    .component-list--icons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+      gap: 0.45rem;
+      padding: 0;
+      list-style: none;
+    }
+
+    .component-list--icons li {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.45rem 0.55rem;
+      border-radius: 0.55rem;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 0.875rem;
+    }
+
+    .subcategory-icon {
+      width: 1.35rem;
+      height: 1.35rem;
+      flex: none;
+      color: #3157c8;
+    }
+
+    .manufacturer-group {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e2e7f0;
+    }
+
+    .manufacturer-group h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1rem;
+    }
+
+    .manufacturer-group > p {
+      margin: 0;
+      color: #4b5568;
+      line-height: 1.5;
+    }
+
+    .manufacturer-types {
+      display: grid;
+      gap: 0.7rem;
+      margin: 1rem 0 0;
+    }
+
+    .manufacturer-types dt {
+      font-weight: 700;
+    }
+
+    .manufacturer-types dd {
+      margin: 0.2rem 0 0;
+      color: #4b5568;
+    }
+
+    .manufacturer-types a,
+    .manufacturer-link {
+      color: #3157c8;
+      font-weight: 650;
+      text-underline-offset: 0.2em;
+    }
+
+    .digital-device-illustration {
+      display: block;
+      width: min(100%, 32rem);
+      height: auto;
+      margin: 1rem auto 0;
+      border-radius: 0.6rem;
+      background: #eef3fa;
+    }
+
+    .electrical-tools-figure {
+      margin: 1.25rem 0 0;
+    }
+
+    .electrical-tools-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 0.6rem;
+      background: #eef3fa;
+    }
+
+    .electrical-tools-figure figcaption {
+      margin-top: 0.55rem;
+      color: #4b5568;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .card#safety-security .component-list,
+    .card#health-medical .component-list,
+    .card#others .component-list {
+      display: block;
+      padding-left: 1.25rem;
+      list-style: disc;
+    }
+
+    .card#safety-security .component-list--icons,
+    .card#health-medical .component-list--icons {
+      display: grid;
+      padding: 0;
+      list-style: none;
+    }
+
+    .card#safety-security .component-list li,
+    .card#health-medical .component-list li,
+    .card#others .component-list li {
+      padding: 0.15rem 0;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .card#safety-security .component-list--icons li,
+    .card#health-medical .component-list--icons li {
+      padding: 0.45rem 0.55rem;
+      border-radius: 0.55rem;
+      background: #f1f5f9;
+    }
+
+    .source {
+      margin-top: 2rem;
+      color: #4b5568;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .source a {
+      color: #3157c8;
+      font-weight: 600;
+      text-underline-offset: 0.2em;
+    }
+
+    footer {
+      width: min(100%, 58rem);
+      margin: auto auto 0;
+      padding: 1.25rem 1rem;
+      border-top: 1px solid #dbe1ea;
+      color: #000;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex: none;
+      grid-column: 1 / -1;
+      color: #000;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .footer-logo-mark {
+      display: block;
+      width: 1.4rem;
+      height: 1.4rem;
+      flex: none;
+    }
+
+    .footer-meta {
+      display: block;
+      flex: none;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .footer-links {
+      display: flex;
+      flex: none;
+      flex-wrap: nowrap;
+      justify-self: start;
+      gap: 0 0.25rem;
+      white-space: nowrap;
+    }
+
+    .footer-links a {
+      color: #000;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-underline-offset: 0.2em;
+    }
+
+    @media (max-width: 48rem) {
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-brand {
+        grid-column: auto;
+      }
+
+      .footer-meta,
+      .footer-links {
+        white-space: normal;
+      }
+
+      .footer-links {
+        justify-self: start;
+        flex-wrap: wrap;
+      }
+    }
+
+    a:focus-visible {
+      outline: 3px solid #3157c8;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+  </style>
+    <link rel="stylesheet" href="site-layout.css?v=8">
+  </head>
+<body>
+  <header>
+    <nav aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="RAMMAR home">
+        <svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M24 4 40 13.2" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+          <path d="M40 13.2v21.6" fill="none" stroke="#facc15" stroke-width="4" stroke-linecap="round"/>
+          <path d="m40 34.8-16 9.2" fill="none" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+          <path d="m24 44-16-9.2" fill="none" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"/>
+          <path d="M8 34.8V13.2" fill="none" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
+          <path d="M8 13.2 24 4" fill="none" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
+          <path d="M16 35V13h11a8 8 0 0 1 2.4 15.6L36 35h-7l-7-6h-1v6h-5Zm5-13h6a2 2 0 1 0 0-4h-6v4Z" fill="#172033" fill-rule="evenodd"/>
+          <circle cx="34.5" cy="10.1" r="2.1" fill="#ec4899"/>
+        </svg>
+        <span class="brand-copy"><span class="brand-name">RAMMAR</span><span class="brand-tagline">Discover. Connect. Build.</span></span>
+      </a>
+      <ul id="site-menu">
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="products.html">Resources</a>
+          <details class="products-dropdown" hidden>
+            <summary aria-current="page">Resources</summary>
+            <ul class="products-submenu">
+              <li>
+                <details class="electronics-dropdown">
+                  <summary>Electronics</summary>
+                  <ul class="electronics-submenu">
+                    <li><a href="#diodes">Diodes</a></li>
+                    <li><a href="#resistors">Resistors</a></li>
+                    <li><a href="#breadboards">Breadboards</a></li>
+                    <li><a href="#jumper-wires">Jumper wires</a></li>
+                    <li><a href="#capacitors">Capacitors</a></li>
+                    <li><a href="#transistors">Transistors</a></li>
+                    <li><a href="#leds">LEDs</a></li>
+                    <li><a href="#integrated-circuits">Integrated circuits</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li><details class="category-dropdown"><summary>Electrical</summary><ul class="category-submenu">
+                <li><a href="#wires-cables">Wires &amp; Cables</a></li><li><a href="#switches">Switches</a></li><li><a href="#circuit-breakers">Circuit Breakers</a></li><li><a href="#fuses">Fuses</a></li><li><a href="#electrical-connectors">Connectors</a></li><li><a href="#relays">Relays</a></li><li><a href="#power-supplies">Power Supplies</a></li><li><a href="#terminals">Terminal Blocks</a></li><li><a href="#screwdrivers-bit-sets">Screwdrivers &amp; Bit Sets</a></li>
+              </ul></details></li>
+              <li><details class="category-dropdown"><summary>Hardware</summary><ul class="category-submenu">
+                <li><a href="#bearings">Bearings</a></li><li><a href="#fasteners">Fasteners</a></li><li><a href="#gears">Gears</a></li><li><a href="#motors">Motors</a></li><li><a href="#pumps">Pumps</a></li><li><a href="#valves">Valves</a></li><li><a href="#couplings">Couplings</a></li><li><a href="#belts">Belts</a></li><li><a href="#cnc-machines">CNC Machines</a></li><li><a href="#conveyors">Conveyors</a></li><li><a href="#robotics">Robotics</a></li><li><a href="#plcs">PLCs</a></li><li><a href="#pneumatics">Pneumatics</a></li><li><a href="#hydraulics">Hydraulics</a></li><li><a href="#production-tools">Production Tools</a></li><li><a href="#machine-parts">Machine Parts</a></li>
+              </ul></details></li>
+              <li><details class="category-dropdown"><summary>Safety &amp; Security</summary><ul class="category-submenu">
+                <li><a href="#ppe">Personal Protective Equipment</a></li><li><a href="#safety-helmets">Safety Helmets</a></li><li><a href="#safety-gloves">Safety Gloves</a></li><li><a href="#safety-goggles">Safety Goggles</a></li><li><a href="#fire-extinguishers">Fire Extinguishers</a></li><li><a href="#cctv-cameras">CCTV Cameras</a></li><li><a href="#access-control">Access Control</a></li><li><a href="#alarms">Alarms</a></li>
+              </ul></details></li>
+              <li><details class="category-dropdown"><summary>Health &amp; Medical</summary><ul class="category-submenu">
+                <li><a href="#first-aid-kits">First Aid Kits</a></li><li><a href="#medical-gloves">Medical Gloves</a></li><li><a href="#medical-masks">Medical Masks</a></li><li><a href="#thermometers">Thermometers</a></li><li><a href="#blood-pressure-monitors">Blood Pressure Monitors</a></li><li><a href="#diagnostic-equipment">Diagnostic Equipment</a></li><li><a href="#laboratory-supplies">Laboratory Supplies</a></li><li><a href="#medical-devices">Medical Devices</a></li>
+              </ul></details></li>
+              <li><details class="category-dropdown"><summary>Others</summary><ul class="category-submenu">
+                <li><a href="#office-supplies">Office Supplies</a></li><li><a href="#cleaning-supplies">Cleaning Supplies</a></li><li><a href="#packaging-materials">Packaging Materials</a></li><li><a href="#storage-organization">Storage &amp; Organization</a></li><li><a href="#hand-tools">Hand Tools</a></li><li><a href="#facility-supplies">Facility Supplies</a></li>
+              </ul></details></li>
+            </ul>
+          </details>
+        </li>
+        <li><a href="index.html#tools">Tools</a></li>
+        <li><a href="index.html#accessories">Accessories</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="signin.html">Sign In</a></li>
+      </ul>
+    </nav>
+  </header>
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="index.html">Home</a></li>
+      <li><span aria-current="page">Resources</span></li>
+    </ol>
+  </nav>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <h1 id="page-title">Explore resources and connect more</h1>
+      <p>Explore resource categories and common uses across electronics, electrical systems, machinery, workplace safety, security, and health and medical. Use RAMMAR to guide your research, then confirm specifications, compatibility, availability, and pricing with manufacturers and suppliers.</p>
+    </section>
+
+    <section class="grid" aria-label="Resource categories">
+      <article class="card" id="electronics">
+        <img src="assets/carousel/02-electronics-components.jpg" alt="Close-up of colorful electronic components on a circuit board" loading="lazy" decoding="async">
+        <div class="card-content">
+          <h2>Electronics</h2>
+          <p>Integrated circuits, semiconductors, resistors, capacitors, sensors, connectors, and circuit-protection components for electronic design and repair.</p>
+          <ul class="component-list" aria-label="Electronics subcategories">
+            <li id="diodes">Diodes</li>
+            <li id="resistors">Resistors</li>
+            <li id="breadboards">Breadboards</li>
+            <li id="jumper-wires">Jumper wires</li>
+            <li id="capacitors">Capacitors</li>
+            <li id="transistors">Transistors</li>
+            <li id="leds">LEDs</li>
+            <li id="integrated-circuits">Integrated circuits</li>
+          </ul>
+          <section class="manufacturer-group" aria-labelledby="analog-devices-types-title">
+            <h3 id="analog-devices-types-title">Manufacturer: Analog Devices</h3>
+            <p>Example analog IC types and part numbers:</p>
+            <dl class="manufacturer-types">
+              <div>
+                <dt>Operational amplifiers</dt>
+                <dd>Dual precision op amp: <a href="index.html#analog-devices">AD8606</a></dd>
+              </div>
+              <div>
+                <dt>Analog-to-digital converters (ADCs)</dt>
+                <dd>24-bit precision ADC: <a href="index.html#analog-devices">AD7124-4</a></dd>
+              </div>
+              <div>
+                <dt>Linear voltage regulators</dt>
+                <dd>Low-noise LDO regulator: <a href="index.html#analog-devices">LT3045</a></dd>
+              </div>
+            </dl>
+            <p><a class="manufacturer-link" href="index.html#analog-devices">View Analog Devices uses, images, and specifications</a></p>
+          </section>
+          <section class="manufacturer-group" aria-labelledby="digital-devices-title">
+            <h3 id="digital-devices-title">Digital Devices</h3>
+            <p>Digital devices represent information with discrete logic states and process, store, or communicate digital data. The examples below show common device types and representative items; exact functions vary by part.</p>
+            <svg class="digital-device-illustration" viewBox="0 0 640 250" role="img" aria-labelledby="digital-device-art-title digital-device-art-desc">
+              <title id="digital-device-art-title">Illustration of digital electronics components on a circuit board</title>
+              <desc id="digital-device-art-desc">A microcontroller, memory chip, logic device, and connectors on a printed circuit board.</desc>
+              <rect width="640" height="250" fill="#e8f0f7"/>
+              <path d="M0 42h95v46h70m310 106h72v-52h88M0 210h80v-44h62m336-124h45V0" fill="none" stroke="#78a89b" stroke-width="5"/>
+              <g fill="#202b3b">
+                <rect x="165" y="57" width="132" height="124" rx="12"/>
+                <rect x="348" y="47" width="108" height="78" rx="10"/>
+                <rect x="350" y="144" width="104" height="62" rx="10"/>
+              </g>
+              <g stroke="#c18b2e" stroke-width="5">
+                <path d="M180 43v-19m22 19V24m22 19V24m22 19V24m22 19V24m22 19V24M180 181v19m22-19v19m22-19v19m22-19v19m22-19v19m22-19v19"/>
+                <path d="M333 60h-18m18 20h-18m18 20h-18m141-40h18m-18 20h18m-18 20h18M335 156h-20m20 20h-20m20 20h-20m139-40h20m-20 20h20m-20 20h20"/>
+              </g>
+              <text x="231" y="105" fill="#fff" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="middle">MCU / CPU</text>
+              <text x="231" y="132" fill="#cbd5e1" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">PROCESS</text>
+              <text x="402" y="91" fill="#fff" font-family="Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle">MEMORY</text>
+              <text x="402" y="182" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle">LOGIC</text>
+            </svg>
+            <dl class="manufacturer-types">
+              <div>
+                <dt>Microcontrollers (MCUs) and processors</dt>
+                <dd>Run program instructions and control peripherals. Representative items: STM32 development boards, Microchip PIC microcontrollers, and single-board computers using application processors.</dd>
+              </div>
+              <div>
+                <dt>Digital logic ICs</dt>
+                <dd>Perform Boolean operations, signal selection, counting, and state control. Items include logic gates, buffers, multiplexers, decoders, flip-flops, counters, and shift registers.</dd>
+              </div>
+              <div>
+                <dt>Memory devices</dt>
+                <dd>Store firmware or data. Items include SRAM for fast temporary storage, EEPROM for rewritable non-volatile data, and Flash memory for firmware, removable storage, or mass storage.</dd>
+              </div>
+              <div>
+                <dt>Programmable logic</dt>
+                <dd>Implement custom digital logic. Items include CPLDs and FPGAs, used for parallel processing, timing control, digital signal interfaces, and custom hardware logic.</dd>
+              </div>
+              <div>
+                <dt>Digital interface and communication ICs</dt>
+                <dd>Translate or manage signals between digital systems. Items include USB controllers, Ethernet controllers, CAN transceivers, and UART, SPI, or I²C interface devices.</dd>
+              </div>
+            </dl>
+            <h4>Materials commonly found in digital devices and assemblies</h4>
+            <dl class="manufacturer-types">
+              <div>
+                <dt>Semiconductor die</dt>
+                <dd>Primarily silicon in mainstream logic, processor, and memory ICs; other semiconductor materials may be used in specialized devices.</dd>
+              </div>
+              <div>
+                <dt>IC package</dt>
+                <dd>Typically includes a molded polymer or ceramic body, a copper-alloy lead frame or package substrate, and conductive interconnects. The exact construction depends on the package and part.</dd>
+              </div>
+              <div>
+                <dt>Printed circuit board (PCB)</dt>
+                <dd>Common rigid boards use FR-4 glass-fiber/epoxy laminate with copper traces, solder mask, and a surface finish. Flexible assemblies may use polyimide; higher-frequency designs may use other laminates.</dd>
+              </div>
+              <div>
+                <dt>Assembly materials</dt>
+                <dd>Include solder alloy, component leads or pads, connectors, and insulation. Choose materials and processes for the board, temperature, current, environment, and applicable safety or environmental requirements.</dd>
+              </div>
+            </dl>
+            <p class="source">These are typical examples, not a bill of materials for every digital device. Check the exact component datasheet and PCB/assembly documentation for material, package, and compatibility details.</p>
+          </section>
+        </div>
+      </article>
+      <article class="card" id="electrical">
+        <img src="assets/carousel/03-circuit-design.jpg" alt="Electronic circuit board used in electrical and electronics work" loading="lazy" decoding="async">
+        <div class="card-content">
+          <h2>Electrical</h2>
+          <p>Wires and cables, switches, connectors, circuit breakers, power-distribution components, and installation supplies for electrical systems.</p>
+          <ul class="component-list" aria-label="Electrical subcategories">
+            <li id="wires-cables">Wires &amp; Cables</li><li id="switches">Switches</li><li id="circuit-breakers">Circuit Breakers</li><li id="fuses">Fuses</li><li id="electrical-connectors">Connectors</li><li id="relays">Relays</li><li id="power-supplies">Power Supplies</li><li id="terminals">Terminal Blocks</li>
+          </ul>
+          <h3 id="screwdrivers-bit-sets">Screwdrivers &amp; Bit Sets</h3>
+          <figure class="electrical-tools-figure">
+            <svg class="electrical-tools-image" viewBox="0 0 640 250" role="img" aria-labelledby="electrical-tools-title electrical-tools-desc">
+              <title id="electrical-tools-title">Screwdrivers and interchangeable bit set for electrical work</title>
+              <desc id="electrical-tools-desc">Illustration of two insulated screwdrivers and a row of interchangeable screwdriver bits used for electrical installation and maintenance.</desc>
+              <rect width="640" height="250" fill="#eef3fa"/>
+              <g transform="translate(78 40) rotate(-18 95 84)">
+                <rect x="82" y="28" width="27" height="117" rx="13" fill="#e85d36"/>
+                <rect x="87" y="43" width="17" height="85" rx="8" fill="#f8fafc"/>
+                <rect x="91" y="142" width="9" height="74" fill="#9aa7b8"/>
+                <path d="M91 216h9l-4.5 15z" fill="#596779"/>
+              </g>
+              <g transform="translate(205 44) rotate(14 96 88)">
+                <rect x="82" y="28" width="27" height="117" rx="13" fill="#3157c8"/>
+                <rect x="87" y="43" width="17" height="85" rx="8" fill="#f8fafc"/>
+                <rect x="91" y="142" width="9" height="74" fill="#9aa7b8"/>
+                <path d="M91 216h9l-4.5 15z" fill="#596779"/>
+              </g>
+              <rect x="400" y="44" width="176" height="158" rx="12" fill="#d8e1ed"/>
+              <text x="488" y="70" fill="#334155" font-family="Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle">BIT SET</text>
+              <g fill="#64748b">
+                <path d="M432 93h8v38h-8zM454 91h8v40h-8zM476 93h8v38h-8zM498 91h8v40h-8zM520 93h8v38h-8zM542 91h8v40h-8z"/>
+                <path d="M428 89h16l-8-12zM450 87h16l-8-12zM472 89h16l-8-12zM494 87h16l-8-12zM516 89h16l-8-12zM538 87h16l-8-12z"/>
+              </g>
+              <rect x="425" y="143" width="126" height="11" rx="5" fill="#94a3b8"/>
+              <text x="488" y="180" fill="#475569" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">PH • SL • TORX • HEX</text>
+            </svg>
+            <figcaption><strong>Screwdrivers and bit sets:</strong> used to tighten or loosen terminal screws, electrical panels, switches, and equipment fasteners. For electrical work, select insulated tools with an appropriate voltage rating and inspect them before use; an insulated screwdriver is not a substitute for safe isolation procedures.</figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="card" id="hardware">
+        <span id="mechanical"></span><span id="manufacturing"></span>
+        <img src="assets/carousel/04-industrial-production.jpg" alt="Industrial production equipment in a factory" loading="lazy" decoding="async">
+        <div class="card-content">
+          <h2>Hardware</h2>
+          <p>Machine components, production machinery, automation and control equipment, and maintenance supplies for assemblies, equipment, and manufacturing facilities.</p>
+          <ul class="component-list" aria-label="Hardware subcategories">
+            <li id="bearings">Bearings</li><li id="fasteners">Fasteners</li><li id="gears">Gears</li><li id="motors">Motors</li><li id="pumps">Pumps</li><li id="valves">Valves</li><li id="couplings">Couplings</li><li id="belts">Belts</li>
+            <li id="cnc-machines">CNC Machines</li><li id="conveyors">Conveyors</li><li id="robotics">Robotics</li><li id="plcs">PLCs</li><li id="pneumatics">Pneumatics</li><li id="hydraulics">Hydraulics</li><li id="production-tools">Production Tools</li><li id="machine-parts">Machine Parts</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card" id="safety-security">
+        <img src="assets/carousel/10-workplace-safety.jpg" alt="Worker wearing protective equipment" loading="lazy" decoding="async">
+        <div class="card-content">
+          <h2>Safety &amp; Security</h2>
+          <p>Protective equipment, warning signs, access-control products, surveillance devices, and emergency-response supplies.</p>
+          <ul class="component-list component-list--icons" aria-label="Safety and security subcategories">
+            <li id="ppe"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#safety-ppe"></use></svg><span>Personal Protective Equipment</span></li><li id="safety-helmets"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#safety-helmets"></use></svg><span>Safety Helmets</span></li><li id="safety-gloves"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#safety-gloves"></use></svg><span>Safety Gloves</span></li><li id="safety-goggles"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#safety-goggles"></use></svg><span>Safety Goggles</span></li><li id="fire-extinguishers"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#safety-extinguishers"></use></svg><span>Fire Extinguishers</span></li><li id="cctv-cameras"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#safety-cameras"></use></svg><span>CCTV Cameras</span></li><li id="access-control"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#safety-access-control"></use></svg><span>Access Control</span></li><li id="alarms"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#safety-alarms"></use></svg><span>Alarms</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="card" id="health-medical">
+        <img src="assets/carousel/08-healthcare-equipment.jpg" alt="Healthcare professional using medical equipment" loading="lazy" decoding="async">
+        <div class="card-content">
+          <h2>Health &amp; Medical</h2>
+          <p>Healthcare and laboratory supplies, diagnostic equipment, personal protective items, and medical devices.</p>
+          <ul class="component-list component-list--icons" aria-label="Health and medical subcategories">
+            <li id="first-aid-kits"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#health-first-aid"></use></svg><span>First Aid Kits</span></li><li id="medical-gloves"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#health-gloves"></use></svg><span>Medical Gloves</span></li><li id="medical-masks"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#health-masks"></use></svg><span>Medical Masks</span></li><li id="thermometers"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#health-thermometers"></use></svg><span>Thermometers</span></li><li id="blood-pressure-monitors"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#health-blood-pressure"></use></svg><span>Blood Pressure Monitors</span></li><li id="diagnostic-equipment"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#health-diagnostics"></use></svg><span>Diagnostic Equipment</span></li><li id="laboratory-supplies"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#health-laboratory"></use></svg><span>Laboratory Supplies</span></li><li id="medical-devices"><svg class="subcategory-icon" aria-hidden="true"><use href="assets/subcategory-icons.svg#health-medical-devices"></use></svg><span>Medical Devices</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="card" id="others">
+        <img src="assets/carousel/11-warehouse-logistics.jpg" alt="Organized warehouse supplies and logistics storage" loading="lazy" decoding="async">
+        <div class="card-content">
+          <h2>Others</h2>
+          <p>Additional supplies and equipment for workplace, facility, and project needs that span multiple categories.</p>
+          <ul class="component-list" aria-label="Other resource subcategories">
+            <li id="office-supplies">Office Supplies</li><li id="cleaning-supplies">Cleaning Supplies</li><li id="packaging-materials">Packaging Materials</li><li id="storage-organization">Storage &amp; Organization</li><li id="hand-tools">Hand Tools</li><li id="facility-supplies">Facility Supplies</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <p class="source">Looking for specific parts? Visit <a href="https://www.ameya360.com/" target="_blank" rel="noopener noreferrer">Ameya360</a> for supplier listings. Confirm specifications, stock, and pricing directly with the supplier. RAMMAR provides original category summaries and does not represent live inventory.</p>
+  </main>
+  <footer>
+    <div class="footer-content">
+      <a class="footer-brand" href="index.html" aria-label="RAMMAR home"><svg class="footer-logo-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 4 40 13.2" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round"/><path d="M40 13.2v21.6" fill="none" stroke="#facc15" stroke-width="4" stroke-linecap="round"/><path d="m40 34.8-16 9.2" fill="none" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/><path d="m24 44-16-9.2" fill="none" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"/><path d="M8 34.8V13.2" fill="none" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/><path d="M8 13.2 24 4" fill="none" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/><path d="M16 35V13h11a8 8 0 0 1 2.4 15.6L36 35h-7l-7-6h-1v6h-5Zm5-13h6a2 2 0 1 0 0-4h-6v4Z" fill="#172033" fill-rule="evenodd"/><circle cx="34.5" cy="10.1" r="2.1" fill="#ec4899"/></svg>RAMMAR</a>
+      <div class="footer-meta">
+        <span>&copy; 2026 RAMMAR. All rights reserved.</span>
+      </div>
+      <nav class="footer-links" aria-label="Legal information">
+        <a href="legal.html#copyright">Copyright</a>
+        <a href="legal.html#standards">IEEE &amp; ISO Standards</a>
+        <a href="legal.html#privacy">Privacy Policy</a>
+        <a href="legal.html#terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+  <script src="breadcrumbs.js?v=4"></script>
+</body>
+</html>
